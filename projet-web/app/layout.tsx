@@ -2,13 +2,14 @@
 import '../styles/globals.scss';
 import Link from 'next/link';
 import { SessionProvider, useSession, signOut } from 'next-auth/react';
+import { JSX } from 'react';
 
-function Navbar() {
+function Navbar(): JSX.Element {
   const { data: session } = useSession();
 
   return (
     <nav className="navbar-custom">
-      <Link href="/" className="brand">🛍️ MonShop</Link>
+      <Link href="/" className="brand">🛍️ Boutique de 67</Link>
       <ul className="nav-links">
         <li><Link href="/">Boutique</Link></li>
         {session ? (
@@ -31,7 +32,7 @@ function Navbar() {
   );
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
   return (
     <html lang="fr">
       <body>
