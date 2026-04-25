@@ -1,0 +1,53 @@
+.navbar-custom {
+    background: linear-gradient(90deg, hsla(333, 100%, 53%, 1) 0%, hsla(33, 94%, 57%, 1) 100%);
+    background: -moz-linear-gradient(90deg, hsla(333, 100%, 53%, 1) 0%, hsla(33, 94%, 57%, 1) 100%);
+    background: -webkit-linear-gradient(90deg, hsla(333, 100%, 53%, 1) 0%, hsla(33, 94%, 57%, 1) 100%);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px hsla(333, 100%, 53%, .3);
+  
+    .brand {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -.5px;
+  
+      &:hover { opacity: .85; }
+    }
+  
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+  
+      a {
+        color: rgba(255,255,255,.85);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color .2s;
+        &:hover { color: #fff; }
+      }
+  
+      .btn-deconnexion {
+        background: rgba(255,255,255,.15);
+        border: 1px solid rgba(255,255,255,.3);
+        color: #fff;
+        border-radius: 8px;
+        padding: .35rem .9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background .2s;
+        font-size: .9rem;
+        &:hover { background: rgba(255,255,255,.25); }
+      }
+    }
+  }

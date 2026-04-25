@@ -1,0 +1,86 @@
+.supprimer-wrapper {
+    max-width: 520px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+  
+    .supprimer-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(239, 68, 68, .3);
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+  
+      .supprimer-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+      }
+  
+      h1 {
+        font-weight: 800;
+        font-size: 1.6rem;
+        margin-bottom: .5rem;
+        color: var(--danger);
+      }
+  
+      .supprimer-desc {
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+  
+      .produit-preview {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 2rem;
+        text-align: left;
+  
+        img {
+          width: 70px;
+          height: 70px;
+          object-fit: cover;
+          border-radius: 10px;
+          flex-shrink: 0;
+        }
+  
+        .preview-info {
+          .preview-nom {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: .25rem;
+          }
+  
+          .preview-prix {
+            font-weight: 800;
+            background: linear-gradient(90deg, hsla(333,100%,53%,1), hsla(33,94%,57%,1));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
+      }
+  
+      .warning-box {
+        background: rgba(239, 68, 68, .08);
+        border: 1px solid rgba(239, 68, 68, .3);
+        border-radius: 10px;
+        padding: .9rem 1rem;
+        color: var(--danger);
+        font-size: .875rem;
+        margin-bottom: 1.75rem;
+  
+        strong { font-weight: 700; }
+      }
+  
+      .supprimer-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+  }

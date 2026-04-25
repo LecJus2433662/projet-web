@@ -1,0 +1,44 @@
+.achat-wrapper {
+    max-width: 580px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+  
+    .achat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+  
+      h2 { font-weight: 800; margin-bottom: 1.5rem; }
+  
+      .achat-produit {
+        display: flex;
+        gap: 1.25rem;
+        align-items: center;
+        margin-bottom: 1.75rem;
+  
+        img { width: 90px; height: 90px; object-fit: cover; border-radius: 12px; }
+  
+        .achat-nom { font-weight: 700; font-size: 1.1rem; margin-bottom: .25rem; }
+  
+        .achat-prix {
+          font-size: 1.5rem;
+          font-weight: 900;
+          background: linear-gradient(90deg, hsla(333,100%,53%,1), hsla(33,94%,57%,1));
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+  
+      .stripe-notice {
+        background: hsla(333, 100%, 53%, .08);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1rem;
+        font-size: .875rem;
+        color: var(--text-muted);
+        margin-bottom: 1.5rem;
+      }
+    }
+  }

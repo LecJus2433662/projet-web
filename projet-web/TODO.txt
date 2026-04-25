@@ -1,0 +1,1 @@
+Pas grande chose a faire, techniquement les pages  sont faits, juste checker si y aura des bugs avec notre API de backend

@@ -1,0 +1,44 @@
+.product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px hsla(333, 100%, 53%, .2);
+      border-color: hsla(333, 100%, 53%, .5);
+    }
+  
+    .card-img-top {
+      height: 220px;
+      object-fit: cover;
+      width: 100%;
+    }
+  
+    .card-body {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      flex: 1;
+    }
+  
+    .card-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+  
+    .price-badge {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, hsla(333,100%,53%,1), hsla(33,94%,57%,1));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }

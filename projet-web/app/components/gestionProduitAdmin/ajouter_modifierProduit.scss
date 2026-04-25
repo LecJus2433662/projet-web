@@ -1,0 +1,24 @@
+.produit-form-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+  
+    h1 { font-weight: 800; margin: 1.5rem 0; }
+  
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+  
+      .error-box {
+        background: rgba(239,68,68,.1);
+        border: 1px solid var(--danger);
+        border-radius: 8px;
+        padding: .75rem;
+        color: var(--danger);
+        font-size: .875rem;
+      }
+  
+      .form-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: .5rem; }
+    }
+  }
