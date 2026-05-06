@@ -12,7 +12,7 @@ export default function DetailProduit() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/produits/${id}`)
+    fetch(`http://localhost:3000/produits/${id}`)
       .then((r) => { if (!r.ok) throw new Error(); return r.json(); })
       .then((data: Produit) => { setProduit(data); setLoading(false); })
       .catch(() => router.push('/erreur?raison=produit-introuvable'));

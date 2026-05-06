@@ -6,7 +6,7 @@ export default function BlogCard({produit}: Props) {
   return (
     <div className="product-card card h-100 shadow-sm">
       <img
-        src={``}
+        src={produit.image}
         alt={produit.nom}
         className="card-img-top"
       />

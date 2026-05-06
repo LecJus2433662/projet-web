@@ -79,14 +79,14 @@ export default function Header() {
   if (!mounted) {
     return (
       <nav className="navbar-custom">
-        <Link href="/" className="brand">🛍️ MonShop</Link>
+        <Link href="/" className="brand">🛍️ Shop 67</Link>
       </nav>
     );
   }
 
   return (
     <nav className="navbar-custom">
-      <Link href="/" className="brand">🛍️ MonShop</Link>
+      <Link href="/" className="brand">🛍️ Shop 67</Link>
 
       <ul className="nav-links">
 

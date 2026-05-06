@@ -11,7 +11,7 @@ export default function pageAccueil() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/produits')
+    fetch('http://localhost:3000/produits')
       .then((r) => r.json())
       .then((data: Produit[]) => { setProduits(data); setLoading(false); })
       .catch(() => setLoading(false));

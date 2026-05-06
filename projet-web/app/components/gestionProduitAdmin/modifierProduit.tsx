@@ -1,5 +1,5 @@
 'use client';
-import './ModifierProduit.scss';
+import './ajouter_modifierProduit.scss';
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -15,7 +15,7 @@ export default function ModifierProduit() {
   const [erreur, setErreur] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/produits/${id}`)
+    fetch(`http://localhost:3000/produits/${id}`)
       .then((r) => { if (!r.ok) throw new Error(); return r.json(); })
       .then((data: Produit) => { setForm(data); setLoading(false); })
       .catch(() => router.push('/erreur?raison=produit-introuvable'));
@@ -31,7 +31,7 @@ export default function ModifierProduit() {
     e.preventDefault(); if (!form) return;
     setSaving(true); setErreur('');
     try {
-      const res = await fetch(`http://localhost:8080/api/produits/${id}`, {
+      const res = await fetch(`http://localhost:3000/produits/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, prix: parseFloat(String(form.prix)), quantite: parseInt(String(form.quantite)) }),
@@ -45,7 +45,7 @@ export default function ModifierProduit() {
     if (!form || !confirm(`Supprimer « ${form.nom} » ?`)) return;
     setDeleting(true);
     try {
-      const res = await fetch(`http://localhost:8080/api/produits/${id}`, { method: 'DELETE' });
+      const res = await fetch(`http://localhost:3000/produits/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error();
       router.push('/admin');
     } catch { setErreur('Erreur lors de la suppression.'); setDeleting(false); }
