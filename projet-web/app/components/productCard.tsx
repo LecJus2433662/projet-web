@@ -23,7 +23,7 @@ export default function BlogCard({produit}: Props) {
           </span>
 
           <span className="badge bg-secondary">
-            Stock: {produit.quantite}
+            Stock: {produit.nbProduitRestant}
           </span>
         </div>
 
