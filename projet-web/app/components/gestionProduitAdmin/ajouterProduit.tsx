@@ -21,7 +21,7 @@ export default function AjouterProduit() {
     e.preventDefault();
     setLoading(true); setErreur('');
     try {
-      const res = await fetch('http://localhost:8080/api/produits', {
+      const res = await fetch('/api/produits', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, prix: parseFloat(form.prix), quantite: parseInt(form.quantite) }),
