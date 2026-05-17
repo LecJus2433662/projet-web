@@ -17,6 +17,13 @@ export interface FormProduit {
 
 export interface Props { produit: Produit; }
 
+export interface PanierItem {
+  id: number;
+  nom: string;
+  prix: number;
+  image: string;
+  quantite: number;
+}
 
 
 export type UserRole = 'admin' | 'utilisateur';

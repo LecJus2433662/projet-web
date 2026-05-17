@@ -88,4 +88,39 @@
       }
     }
   }
+  .btn-panier {
+    position: relative;
+    background: rgba(196, 12, 12, 0.1);
+    border: 1px solid rgba(196, 12, 12, 0.3);
+    color: #F6CE71;
+    border-radius: 8px;
+    padding: .4rem 1rem;
+    font-weight: 600;
+    font-size: .8rem;
+    letter-spacing: .05em;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  
+    &:hover {
+      background: rgba(196, 12, 12, 0.2);
+      border-color: #C40C0C;
+    }
+  
+    .panier-badge {
+      background: #C40C0C;
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 800;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 .3rem;
+    }
+  }
 }
