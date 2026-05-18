@@ -45,16 +45,7 @@
       "image": "https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600",
       "disponible": true
     },
-    {
-      "id": "6",
-      "nom": "Cold Brew Concentré Maison",
-      "description": "Infusion à froid pendant 20 heures pour un concentré ultra-lisse et naturellement sucré. Moins acide que le café chaud traditionnel. Prêt à diluer avec eau ou lait.",
-      "prix": 14.99,
-      "quantite": 5008,
-      "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600",
-      "disponible": true
-    },
-    {
+   {
       "id": "7",
       "nom": "Café Kona Hawaï",
       "description": "Cultivé sur les pentes volcaniques du Mauna Loa sous un climat idéal. Café doux et lumineux aux notes de miel, macadamia et fleurs tropicales. Production très limitée.",

@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "api": "json-server --watch db.json --port 3001"
+    "start": "next start"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^6.2.0",

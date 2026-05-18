@@ -3,11 +3,9 @@ export interface Produit {
   nom: string;
   description: string;
   prix: number;
-  quantite: number;
+  nbProduitRestant: number; 
   image: string;
-  disponible: boolean;
 }
-
 export interface FormProduit {
   nom: string;
   description: string;
