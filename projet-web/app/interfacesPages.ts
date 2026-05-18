@@ -12,7 +12,6 @@ export interface FormProduit {
   prix: string;
   quantite: string;
   image: string;
-  disponible: boolean;
 }
 
 export interface Props { produit: Produit; }

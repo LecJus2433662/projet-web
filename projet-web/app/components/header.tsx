@@ -5,49 +5,54 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Panier from './panier';
-import { usePanier } from '../Panier/usePanier';
+import { usePanierContext } from '../Panier/panierContext';
 
 export default function Navbar() {
   const pathname = usePathname();
-
-  const [panierOuvert, setPanierOuvert] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [user, setUser] = useState<any>(null);
-  const ouvrirPanier = () => setPanierOuvert(true);
-  const fermerPanier = () => setPanierOuvert(false)
-  
+
   const {
     items,
     updateQuantite,
     supprimerDuPanier,
     viderPanier,
-    nbItems
-  } = usePanier();
+    nbItems,
+    panierOuvert,
+    ouvrirPanier,
+    fermerPanier,
+  } = usePanierContext();
+
+  const lireUser = () => {
+    try {
+      const raw = localStorage.getItem('user');
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  };
 
   useEffect(() => {
     setMounted(true);
+    setUser(lireUser());
 
-    const raw = localStorage.getItem('user');
+    const handleUserChanged = () => setUser(lireUser());
+    window.addEventListener('user-changed', handleUserChanged);
 
-    if (raw) {
-      setUser(JSON.parse(raw));
-    }
+    return () => window.removeEventListener('user-changed', handleUserChanged);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-
     document.cookie = 'token=; path=/; max-age=0';
     document.cookie = 'role=; path=/; max-age=0';
-
+    setUser(null);
+    window.dispatchEvent(new Event('user-changed'));
     window.location.href = '/';
   };
 
-  // Empêche hydration mismatch
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
     <>
@@ -60,33 +65,23 @@ export default function Navbar() {
         <ul className="nav-links">
           {user ? (
             <>
-              {/* Admin */}
               {user.role === 'admin' && (
                 <li>
                   <Link href="/admin">Admin</Link>
                 </li>
               )}
 
-              {/* Utilisateur */}
               {user.role === 'utilisateur' && (
                 <>
                   <li>
-                    <span className="welcome-msg">
-                      Bonjour User
-                    </span>
+                    <span className="welcome-msg">Bonjour User</span>
                   </li>
 
                   <li>
-                    <button
-                      className="btn-panier"
-                      onClick={() => setPanierOuvert(true)}
-                    >
+                    <button className="btn-panier" onClick={ouvrirPanier}>
                       🛒 Panier
-
                       {nbItems > 0 && (
-                        <span className="panier-badge">
-                          {nbItems}
-                        </span>
+                        <span className="panier-badge">{nbItems}</span>
                       )}
                     </button>
                   </li>
@@ -94,10 +89,7 @@ export default function Navbar() {
               )}
 
               <li>
-                <button
-                  className="btn-deconnexion"
-                  onClick={handleLogout}
-                >
+                <button className="btn-deconnexion" onClick={handleLogout}>
                   Déconnexion
                 </button>
               </li>
@@ -110,11 +102,10 @@ export default function Navbar() {
         </ul>
       </nav>
 
-      {/* Widget panier */}
       {user?.role === 'utilisateur' && (
         <Panier
           isOpen={panierOuvert}
-          onClose={() => setPanierOuvert(false)}
+          onClose={fermerPanier}
           items={items}
           onUpdateQty={updateQuantite}
           onDelete={supprimerDuPanier}

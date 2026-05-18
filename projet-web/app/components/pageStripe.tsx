@@ -2,7 +2,7 @@
 import './pageStripe.scss';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { usePanier } from '../Panier/usePanier';
+import { usePanierContext } from '../Panier/panierContext';
 import Link from 'next/link';
 
 interface FormData {
@@ -15,7 +15,7 @@ interface FormData {
 
 export default function Checkout() {
   const router = useRouter();
-  const { items, viderPanier } = usePanier();
+  const { items, viderPanier } = usePanierContext();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState<FormData>({
     email: '',

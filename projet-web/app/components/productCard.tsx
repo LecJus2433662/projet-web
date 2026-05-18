@@ -12,19 +12,29 @@ interface Props {
 export default function BlogCard({ produit, ajouterAuPanier, ouvrirPanier }: Props) {
   const router = useRouter();
 
+  const raw = localStorage.getItem('user');
+  const userActuel = raw ? JSON.parse(raw) : null;
+  const estAdmin = userActuel?.role === 'admin';
+
   const handleAcheter = () => {
     const token = localStorage.getItem('token');
     if (!token) {
       router.push(`/login?redirect=/`);
       return;
     }
+
+    if (estAdmin) {
+      alert('Les administrateurs ne peuvent pas acheter des produits.');
+      return;
+    }
+
     ajouterAuPanier({
       id: produit.id,
       nom: produit.nom,
       prix: produit.prix,
       image: produit.image,
     });
-    ouvrirPanier(); // ← ouvre le panier après ajout
+    ouvrirPanier();
   };
 
   return (
@@ -47,18 +57,21 @@ export default function BlogCard({ produit, ajouterAuPanier, ouvrirPanier }: Pro
         <div className="d-flex flex-column gap-2">
           <button
             className="btn-outline-gradient w-100"
-            onClick={() => router.push(`/produits/${produit.id}`)}
+            onClick={() => router.push(`detailProduit/${produit.id}`)}
             style={{ background: '#1d4ed8', border: 'none', color: '#fff', padding: '.6rem 1rem', borderRadius: '6px', fontWeight: 600, cursor: 'pointer', width: '100%' }}
           >
             Consulter
           </button>
-          <button
-            className="btn btn-success w-100"
-            onClick={handleAcheter}
-            disabled={produit.nbProduitRestant === 0}
-          >
-            🛒 Acheter maintenant
-          </button>
+
+          {!estAdmin && (
+            <button
+              className="btn btn-success w-100"
+              onClick={handleAcheter}
+              disabled={produit.nbProduitRestant === 0}
+            >
+              🛒 Acheter maintenant
+            </button>
+          )}
         </div>
       </div>
     </div>

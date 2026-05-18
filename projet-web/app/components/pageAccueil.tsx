@@ -1,25 +1,17 @@
 'use client';
 import './pageAccueil.scss';
-import { useState, useEffect } from 'react';
-import { usePanier } from '../Panier/usePanier';
-import $ from 'jquery';
+import { useEffect } from 'react';
+import { usePanierContext } from '../Panier/panierContext';
 import type { Produit } from '../interfacesPages';
 import ProductCard from './productCard';
-import Panier from './panier';
+import { useState } from 'react';
 
 export default function PageAccueil() {
-  const [panierOuvert, setPanierOuvert] = useState(false);
   const [produits, setProduits] = useState<Produit[]>([]);
   const [recherche, setRecherche] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
-  const {
-    items,
-    ajouterAuPanier,
-    updateQuantite,
-    supprimerDuPanier,
-    viderPanier
-  } = usePanier();
+  const { ajouterAuPanier, ouvrirPanier } = usePanierContext();
 
   useEffect(() => {
     fetch('/api/produits')
@@ -29,10 +21,9 @@ export default function PageAccueil() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  
+
     import('jquery').then((jquery) => {
       const $ = jquery.default;
-  
       $('#search-input')
         .on('focus', function () {
           $(this).parent().addClass('focused');
@@ -41,7 +32,6 @@ export default function PageAccueil() {
           $(this).parent().removeClass('focused');
         });
     });
-  
   }, []);
 
   const produitsFiltres = produits.filter((p) =>
@@ -84,22 +74,13 @@ export default function PageAccueil() {
                 <ProductCard
                   produit={produit}
                   ajouterAuPanier={ajouterAuPanier}
-                  ouvrirPanier={() => setPanierOuvert(true)}   // ✅ ICI C’EST CORRECT
+                  ouvrirPanier={ouvrirPanier}
                 />
               </div>
             ))}
           </div>
         )}
       </section>
-
-      <Panier
-        isOpen={panierOuvert}
-        onClose={() => setPanierOuvert(false)}
-        items={items}
-        onUpdateQty={updateQuantite}
-        onDelete={supprimerDuPanier}
-        onVider={viderPanier}
-      />
     </>
   );
 }
