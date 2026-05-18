@@ -24,7 +24,7 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     setErreur('');
-   
+
     try {
       const res = await fetch('/api/auth/connexion', {
         method: 'POST',
@@ -34,16 +34,29 @@ export default function Login() {
           motDePasse: form.password,
         }),
       });
-   
+
       if (!res.ok) throw new Error('Identifiants incorrects');
-   
-      const token = await res.json();
-   
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify({ username: form.username, role }));
+
+      const data = await res.json();
+      console.log('Data complète du backend:', data);
+
+      const tokenString = data.token;
+
+      // Utilise le rôle du backend si disponible, sinon celui du bouton
+      const roleReel = data.role ?? data.user?.role ?? data.nomRole ?? role;
+
+      localStorage.setItem('token', tokenString);
+      localStorage.setItem('user', JSON.stringify({
+        username: form.username,
+        role: roleReel  // ← rôle réel du backend
+      }));
+
+      document.cookie = `token=${tokenString}; path=/; max-age=86400`;
+      document.cookie = `role=${roleReel}; path=/; max-age=86400`;
+
       window.dispatchEvent(new Event('user-changed'));
-   
-      if (role === 'admin') {
+
+      if (roleReel === 'admin') {
         router.push('/admin');
       } else {
         router.push('/');

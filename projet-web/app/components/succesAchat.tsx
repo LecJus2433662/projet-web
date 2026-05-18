@@ -1,5 +1,5 @@
 'use client';
-import './Succes.scss';
+import './succesAchat.scss';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 

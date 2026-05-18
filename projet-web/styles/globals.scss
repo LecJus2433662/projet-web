@@ -8,22 +8,21 @@
   --rust:         #CC561E;
   --gold:         #F6CE71;
 
-  // Gradient plus doux, moins saturé
-  --gradient:         linear-gradient(135deg, #8B0000 0%, #CC561E 100%);
-  --gradient-moz:    -moz-linear-gradient(135deg, #8B0000 0%, #CC561E 100%);
-  --gradient-webkit: -webkit-linear-gradient(135deg, #8B0000 0%, #CC561E 100%);
+  --gradient:         linear-gradient(135deg, #C40C0C 0%, #FF6500 100%);
+  --gradient-moz:    -moz-linear-gradient(135deg, #C40C0C 0%, #FF6500 100%);
+  --gradient-webkit: -webkit-linear-gradient(135deg, #C40C0C 0%, #FF6500 100%);
 
-  --bg:           #0A0402;
-  --bg-card:      #0F0503;
-  --bg-card2:     #130604;
-  --bg-elevated:  #180805;
+  --bg:           #1A0500;
+  --bg-card:      #220800;
+  --bg-card2:     #2A0A00;
+  --bg-elevated:  #320C00;
 
   --text:         #F6CE71;
-  --text-muted:   rgba(246, 206, 113, 0.4);
-  --text-soft:    rgba(246, 206, 113, 0.65);
+  --text-muted:   rgba(246, 206, 113, 0.55);
+  --text-soft:    rgba(246, 206, 113, 0.8);
 
-  --border:       rgba(255, 101, 0, 0.12);
-  --border-soft:  rgba(246, 206, 113, 0.06);
+  --border:       rgba(255, 101, 0, 0.3);
+  --border-soft:  rgba(246, 206, 113, 0.12);
 
   --danger:       #ef4444;
   --success:      #10b981;

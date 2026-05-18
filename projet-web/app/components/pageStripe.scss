@@ -1,0 +1,229 @@
+.checkout-wrapper {
+    max-width: 960px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+  
+    h1 {
+      font-family: var(--font-serif);
+      font-weight: 800;
+      font-size: 2rem;
+      color: #F6CE71;
+      margin-bottom: 2rem;
+    }
+  
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 2rem;
+  
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  
+    // ── Résumé commande ──────────────────────────────────────
+    .checkout-resume {
+      background: #fff;
+      border-radius: 14px;
+      padding: 1.75rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.12);
+  
+      h2 {
+        font-family: var(--font-serif);
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #1a0500;
+        margin-bottom: 1.25rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+  
+      .resume-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: .75rem 0;
+        border-bottom: 1px solid #f8f8f8;
+  
+        img {
+          width: 52px;
+          height: 52px;
+          object-fit: cover;
+          border-radius: 8px;
+          flex-shrink: 0;
+        }
+  
+        .resume-info {
+          flex: 1;
+          .resume-nom { font-weight: 600; font-size: .9rem; color: #1a0500; }
+          .resume-qty { font-size: .8rem; color: #888; }
+        }
+  
+        .resume-prix {
+          font-family: var(--font-serif);
+          font-weight: 800;
+          color: #C40C0C;
+          font-size: 1rem;
+        }
+      }
+  
+      .resume-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1.25rem;
+        padding-top: 1rem;
+        border-top: 2px solid #f0f0f0;
+  
+        .total-label {
+          font-size: .8rem;
+          font-weight: 700;
+          letter-spacing: .08em;
+          text-transform: uppercase;
+          color: #888;
+        }
+  
+        .total-montant {
+          font-family: var(--font-serif);
+          font-size: 1.75rem;
+          font-weight: 900;
+          color: #1a0500;
+        }
+      }
+    }
+  
+    // ── Formulaire paiement ──────────────────────────────────
+    .checkout-form-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 1.75rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.12);
+      height: fit-content;
+  
+      h2 {
+        font-family: var(--font-serif);
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #1a0500;
+        margin-bottom: 1.5rem;
+      }
+  
+      .stripe-badge {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        background: #f8faff;
+        border: 1px solid #e0e8ff;
+        border-radius: 8px;
+        padding: .6rem 1rem;
+        margin-bottom: 1.5rem;
+        font-size: .8rem;
+        color: #555;
+  
+        .stripe-logo { font-weight: 800; color: #635bff; font-size: .9rem; }
+      }
+  
+      .form-section-label {
+        font-size: .7rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: #aaa;
+        margin: 1.25rem 0 .75rem;
+      }
+  
+      .form-group {
+        margin-bottom: 1rem;
+  
+        label {
+          display: block;
+          font-size: .78rem;
+          font-weight: 600;
+          color: #555;
+          margin-bottom: .35rem;
+        }
+  
+        input {
+          width: 100%;
+          padding: .7rem 1rem;
+          border: 1.5px solid #e8e8e8;
+          border-radius: 8px;
+          font-size: .9rem;
+          color: #333;
+          background: #fafafa;
+          transition: border-color .2s, box-shadow .2s;
+          outline: none;
+  
+          &:focus {
+            border-color: #C40C0C;
+            box-shadow: 0 0 0 3px rgba(196, 12, 12, .1);
+            background: #fff;
+          }
+  
+          &::placeholder { color: #bbb; }
+        }
+      }
+  
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .75rem;
+      }
+  
+      .card-field {
+        position: relative;
+  
+        input { padding-right: 3rem; }
+  
+        .card-icon {
+          position: absolute;
+          right: 1rem;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 1.1rem;
+        }
+      }
+  
+      .btn-payer {
+        width: 100%;
+        background: linear-gradient(135deg, #C40C0C 0%, #FF6500 100%);
+        color: #fff;
+        border: none;
+        padding: 1rem;
+        border-radius: 10px;
+        font-weight: 800;
+        font-size: 1rem;
+        letter-spacing: .03em;
+        cursor: pointer;
+        margin-top: 1.5rem;
+        transition: opacity .2s, transform .15s, box-shadow .2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+  
+        &:hover {
+          opacity: .92;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(196, 12, 12, .3);
+        }
+  
+        &:disabled {
+          background: #e5e7eb;
+          color: #9ca3af;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
+        }
+      }
+  
+      .test-notice {
+        text-align: center;
+        font-size: .75rem;
+        color: #aaa;
+        margin-top: .75rem;
+  
+        span { color: #C40C0C; font-weight: 600; }
+      }
+    }
+  }

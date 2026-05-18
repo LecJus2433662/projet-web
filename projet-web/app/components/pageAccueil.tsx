@@ -1,30 +1,37 @@
 'use client';
 import './pageAccueil.scss';
-import { useState, useEffect } from 'react';
-import $ from 'jquery';
+import { useEffect } from 'react';
+import { usePanierContext } from '../Panier/panierContext';
 import type { Produit } from '../interfacesPages';
 import ProductCard from './productCard';
+import { useState } from 'react';
 
-export default function pageAccueil() {
+export default function PageAccueil() {
   const [produits, setProduits] = useState<Produit[]>([]);
   const [recherche, setRecherche] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
+  const { ajouterAuPanier, ouvrirPanier } = usePanierContext();
+
   useEffect(() => {
     fetch('/api/produits')
       .then((r) => r.json())
-      .then((data: Produit[]) => { setProduits(data); setLoading(false); })
+      .then((data: Produit[]) => {
+        setProduits(data);
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
 
-      const $ = require('jquery');
-    // jQuery : highlight de la search bar
-    $('#search-input').on('focus', function () {
-      $(this).parent().addClass('focused');
-    }).on('blur', function () {
-      $(this).parent().removeClass('focused');
+    import('jquery').then((jquery) => {
+      const $ = jquery.default;
+      $('#search-input')
+        .on('focus', function () {
+          $(this).parent().addClass('focused');
+        })
+        .on('blur', function () {
+          $(this).parent().removeClass('focused');
+        });
     });
-
-    return () => { $('#search-input').off('focus blur'); };
   }, []);
 
   const produitsFiltres = produits.filter((p) =>
@@ -52,19 +59,23 @@ export default function pageAccueil() {
 
         {loading ? (
           <div className="text-center py-5">
-            <div className="spinner-border" style={{ color: 'hsla(333,100%,53%,1)' }} />
+            <div className="spinner-border" />
             <p className="mt-3 text-muted-custom">Chargement...</p>
           </div>
         ) : produitsFiltres.length === 0 ? (
           <div className="text-center py-5">
             <p style={{ fontSize: '3rem' }}>😕</p>
-            <p className="text-muted-custom">Aucun produit trouvé pour « {recherche} »</p>
+            <p>Aucun produit trouvé</p>
           </div>
         ) : (
           <div className="row g-4">
             {produitsFiltres.map((produit) => (
               <div key={produit.id} className="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <ProductCard produit={produit} />
+                <ProductCard
+                  produit={produit}
+                  ajouterAuPanier={ajouterAuPanier}
+                  ouvrirPanier={ouvrirPanier}
+                />
               </div>
             ))}
           </div>

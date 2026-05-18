@@ -3,131 +3,115 @@
 import './header.scss';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import Panier from './panier';
+import { usePanierContext } from '../Panier/panierContext';
 
-type User = {
-  username: string;
-  role: 'admin' | 'utilisateur';
-};
-
-export default function Header() {
+export default function Navbar() {
   const pathname = usePathname();
-
-  const [user, setUser] = useState<User | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
-  // 🔥 charge user + écoute changements
-  useEffect(() => {
-    const loadUser = () => {
+  const {
+    items,
+    updateQuantite,
+    supprimerDuPanier,
+    viderPanier,
+    nbItems,
+    panierOuvert,
+    ouvrirPanier,
+    fermerPanier,
+  } = usePanierContext();
+
+  const lireUser = () => {
+    try {
       const raw = localStorage.getItem('user');
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  };
 
-      if (raw) {
-        try {
-          const parsed = JSON.parse(raw);
-
-          if (parsed?.role && parsed?.username) {
-            setUser({
-              username: parsed.username,
-              role: parsed.role,
-            });
-          } else {
-            setUser(null);
-          }
-        } catch {
-          setUser(null);
-        }
-      } else {
-        setUser(null);
-      }
-    };
-
-    loadUser();
+  useEffect(() => {
     setMounted(true);
+    setUser(lireUser());
 
-    // 🔥 écoute changements login/logout
-    window.addEventListener('storage', loadUser);
-    window.addEventListener('user-changed', loadUser);
+    const handleUserChanged = () => setUser(lireUser());
+    window.addEventListener('user-changed', handleUserChanged);
 
-    return () => {
-      window.removeEventListener('storage', loadUser);
-      window.removeEventListener('user-changed', loadUser);
-    };
+    return () => window.removeEventListener('user-changed', handleUserChanged);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-
     document.cookie = 'token=; path=/; max-age=0';
     document.cookie = 'role=; path=/; max-age=0';
-
     setUser(null);
-
-    // 🔥 notify navbar update
     window.dispatchEvent(new Event('user-changed'));
-
-    window.location.href = '/login';
+    window.location.href = '/';
   };
 
-  const getGreeting = () => {
-    if (!user) return '';
-    return user.role === 'admin'
-      ? `Bonjour admin 🛠️`
-      : `Bonjour ${user.username} 👋`;
-  };
-
-  if (!mounted) {
-    return (
-      <nav className="navbar-custom">
-        <Link href="/" className="brand">🛍️ Shop 67</Link>
-      </nav>
-    );
-  }
+  if (!mounted) return null;
 
   return (
-    <nav className="navbar-custom">
-      <Link href="/" className="brand">🛍️ Shop 67</Link>
+    <>
+      <nav className="navbar-custom">
+        <Link href="/" className="brand">
+          MonShop
+          <span className="brand-dot" />
+        </Link>
 
-      <ul className="nav-links">
+        <ul className="nav-links">
+          {user ? (
+            <>
+              {user.role === 'admin' && (
+                <li>
+                  <Link href="/admin">Admin</Link>
+                </li>
+              )}
 
-        {/* 👋 greeting */}
-        {user && (
-          <li className="greeting">
-            <span>{getGreeting()}</span>
-          </li>
-        )}
+              {user.role === 'utilisateur' && (
+                <>
+                  <li>
+                    <span className="welcome-msg">Bonjour User</span>
+                  </li>
 
-        {/* boutique */}
-        <li>
-          <Link
-            href="/"
-            style={{ fontWeight: pathname === '/' ? 800 : 600 }}
-          >
-            Boutique
-          </Link>
-        </li>
+                  <li>
+                    <button className="btn-panier" onClick={ouvrirPanier}>
+                      🛒 Panier
+                      {nbItems > 0 && (
+                        <span className="panier-badge">{nbItems}</span>
+                      )}
+                    </button>
+                  </li>
+                </>
+              )}
 
-        {/* admin */}
-        {user?.role === 'admin' && (
-          <li>
-            <Link href="/admin">Admin</Link>
-          </li>
-        )}
+              <li>
+                <button className="btn-deconnexion" onClick={handleLogout}>
+                  Déconnexion
+                </button>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link href="/login">Connexion</Link>
+            </li>
+          )}
+        </ul>
+      </nav>
 
-        {/* auth */}
-        {user ? (
-          <li>
-            <button className="btn-deconnexion" onClick={handleLogout}>
-              Déconnexion
-            </button>
-          </li>
-        ) : (
-          <li>
-            <Link href="/login">Connexion</Link>
-          </li>
-        )}
-
-      </ul>
-    </nav>
+      {user?.role === 'utilisateur' && (
+        <Panier
+          isOpen={panierOuvert}
+          onClose={fermerPanier}
+          items={items}
+          onUpdateQty={updateQuantite}
+          onDelete={supprimerDuPanier}
+          onVider={viderPanier}
+        />
+      )}
+    </>
   );
 }

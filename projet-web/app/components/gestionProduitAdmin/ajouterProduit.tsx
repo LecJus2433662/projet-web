@@ -7,24 +7,34 @@ import type { FormProduit } from '../../interfacesPages';
 
 export default function AjouterProduit() {
   const router = useRouter();
-  const [form, setForm] = useState<FormProduit>({ nom: '', description: '', prix: '', quantite: '', image: '', disponible: true });
+  const [form, setForm] = useState<FormProduit>({ nom: '', description: '', prix: '', quantite: '', image: ''});
   const [loading, setLoading] = useState(false);
   const [erreur, setErreur] = useState('');
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
     setForm((f) => ({ ...f, [name]: type === 'checkbox' ? checked : value }));
   };
-
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true); setErreur('');
     try {
-      const res = await fetch('http://localhost:8080/api/produits', {
+      const res = await fetch('/api/produits', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, prix: parseFloat(form.prix), quantite: parseInt(form.quantite) }),
+        headers: {
+          'Content-Type': 'application/json',
+          // Envoie le token si ton backend le demande
+          'Authorization': `Bearer ${document.cookie.match(/token=([^;]+)/)?.[1] ?? ''}`,
+        },
+        body: JSON.stringify({
+          nom:              form.nom,
+          description:      form.description,
+          prix:             parseFloat(String(form.prix)),
+          nbProduitRestant: parseInt(String(form.quantite)), // ← nom exact de ton backend
+          image:            form.image,
+        }),
       });
       if (!res.ok) throw new Error();
       router.push('/admin');
@@ -43,10 +53,6 @@ export default function AjouterProduit() {
           <div className="col-6"><label className="form-label">Quantité *</label><input name="quantite" type="number" min="0" className="form-control" value={form.quantite} onChange={handleChange} required /></div>
         </div>
         <div><label className="form-label">URL image</label><input name="image" type="url" className="form-control" placeholder="https://..." value={form.image} onChange={handleChange} /></div>
-        <div className="d-flex align-items-center gap-2">
-          <input name="disponible" type="checkbox" id="disponible" checked={form.disponible} onChange={handleChange} style={{ width: 18, height: 18, accentColor: 'hsla(333,100%,53%,1)', cursor: 'pointer' }} />
-          <label htmlFor="disponible" style={{ cursor: 'pointer', marginBottom: 0 }}>Disponible à la vente</label>
-        </div>
         {erreur && <div className="error-box">{erreur}</div>}
         <button type="submit" className="btn-gradient" disabled={loading}>{loading ? '⏳ Ajout...' : '✅ Ajouter'}</button>
       </form>
