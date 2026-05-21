@@ -41,7 +41,7 @@ export default function PageAccueil() {
   return (
     <>
       <section className="boutique-hero">
-        <h1>Boutique 67 ✨</h1>
+        <h1>Boutique de cabane à sucre</h1>
         <p>Découvrez nos produits exclusifs</p>
       </section>
 
