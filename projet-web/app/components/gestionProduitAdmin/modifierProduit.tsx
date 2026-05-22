@@ -39,14 +39,13 @@ export default function ModifierProduit() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          // Envoie le token si ton backend le demande
           'Authorization': `Bearer ${document.cookie.match(/token=([^;]+)/)?.[1] ?? ''}`,
         },
         body: JSON.stringify({
           nom:              form.nom,
           description:      form.description,
           prix:             parseFloat(String(form.prix)),
-          nbProduitRestant: parseInt(String(form.nbProduitRestant)), // ← nom exact de ton backend
+          nbProduitRestant: parseInt(String(form.nbProduitRestant)), 
           image:            form.image,
         }),
       });
@@ -56,7 +55,6 @@ export default function ModifierProduit() {
       setSucces('✅ Produit modifié avec succès !');
       setSaving(false);
 
-      // Retour au dashboard après 1.5s
       setTimeout(() => router.push('/admin'), 1500);
 
     } catch {

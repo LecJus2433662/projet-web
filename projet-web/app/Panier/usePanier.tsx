@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import type { PanierItem } from '../interfacesPages';
+import { useCallback } from 'react';
 
 const CLE = 'monshop_panier';
 
@@ -52,7 +53,10 @@ export function usePanier() {
         setItems((prev) => prev.filter((i) => i.id !== id));
     };
 
-    const viderPanier = () => setItems([]);
+    const viderPanier = useCallback(() => {
+        setItems([]);
+        localStorage.removeItem('monshop_panier'); // ✅ même clé que CLE
+      }, []);
 
     const nbItems = items.reduce((acc, i) => acc + i.quantite, 0);
 

@@ -1,56 +1,79 @@
 'use client';
-import './pageStripe.scss';
+
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { usePanierContext } from '../Panier/panierContext';
 import Link from 'next/link';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import './pageStripe.scss';
 
-interface FormData {
-  email: string;
-  nom: string;
-  numerocarte: string;
-  expiration: string;
-  cvv: string;
-}
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
-export default function Checkout() {
-  const router = useRouter();
-  const { items, viderPanier } = usePanierContext();
+function PaymentForm({ items, total }: { items: any[]; total: number }) {
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState<FormData>({
-    email: '',
-    nom: '',
-    numerocarte: '4242 4242 4242 4242',
-    expiration: '',
-    cvv: '',
-  });
-
-  const total = items.reduce((acc, i) => acc + i.prix * i.quantite, 0);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-  };
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    // Simulation paiement Stripe test (2 secondes)
-    await new Promise((res) => setTimeout(res, 2000));
-
-    viderPanier();
-    router.push('/succesAchat');
+    setError('');
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: items.map((i) => ({
+            id:       i.id,       
+            nom:      i.nom,
+            prix:     i.prix,
+            quantite: i.quantite,
+          })),
+          utilisateurId: '', 
+        }),
+      });
+  
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Erreur inconnue');
+      window.location.href = data.url;
+    } catch (err: any) {
+      setError(err.message);
+      setLoading(false);
+    }
   };
+
+  return (
+    <form className="checkout-form-card" onSubmit={handleSubmit}>
+      <div className="secure-badge">
+        <span>🔒 Paiement sécurisé — chiffrement SSL 256 bits</span>
+        <span className="badge-test">Test</span>
+      </div>
+      <div className="test-card-box">
+        <p className="test-label">Carte de test Stripe</p>
+        <p className="test-num">4242 4242 4242 4242</p>
+        <p className="test-detail">Date : n'importe quelle date future · CVC : 3 chiffres</p>
+      </div>
+      <p className="redirect-note">Vous serez redirigé vers Stripe pour finaliser.</p>
+      {error && <div className="stripe-error">{error}</div>}
+      <button type="submit" className="btn-payer" disabled={loading}>
+        {loading ? 'Traitement...' : `Payer $${total.toFixed(2)}`}
+      </button>
+      <p className="terms-note">En cliquant, vous acceptez les conditions de paiement Stripe.</p>
+    </form>
+  );
+}
+
+// ✅ Export nommé Checkout pour que page.tsx continue de fonctionner
+export default function Checkout() {
+  const { items, viderPanier } = usePanierContext();
+  const total = items.reduce((acc, i) => acc + i.prix * i.quantite, 0);
 
   if (items.length === 0) {
     return (
       <div className="checkout-wrapper text-center py-5">
-        <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-          Ton panier est vide.
-        </p>
-        <Link href="/" className="btn-gradient text-decoration-none">
-          Retourner à la boutique
-        </Link>
+        <p>Ton panier est vide.</p>
+        <Link href="/">Retour à l'accueil</Link>
       </div>
     );
   }
@@ -58,80 +81,25 @@ export default function Checkout() {
   return (
     <div className="checkout-wrapper">
       <h1>Paiement</h1>
-
       <div className="checkout-grid">
-
-        {/* Résumé commande */}
         <div className="checkout-resume">
-          <h2>Résumé de la commande</h2>
-          {items.map((item) => (
+          <h2>Résumé</h2>
+          {items.map((item: any) => (
             <div key={item.id} className="resume-item">
-              <img src={item.image || '/placeholder.jpg'} alt={item.nom} />
-              <div className="resume-info">
-                <div className="resume-nom">{item.nom}</div>
-                <div className="resume-qty">Qté : {item.quantite}</div>
-              </div>
+              <img src={item.image} alt={item.nom} />
+              <div className="resume-nom">{item.nom}</div>
+              <div className="resume-qty">{item.quantite}x</div>
               <div className="resume-prix">${(item.prix * item.quantite).toFixed(2)}</div>
             </div>
           ))}
           <div className="resume-total">
-            <span className="total-label">Total</span>
-            <span className="total-montant">${total.toFixed(2)}</span>
+            <span>Total</span>
+            <span>${total.toFixed(2)}</span>
           </div>
         </div>
-
-        {/* Formulaire paiement */}
-        <form className="checkout-form-card" onSubmit={handleSubmit}>
-          <h2>Informations de paiement</h2>
-
-          <div className="stripe-badge">
-            <span className="stripe-logo">stripe</span>
-            Paiement sécurisé par Stripe
-          </div>
-
-          <p className="form-section-label">Contact</p>
-
-          <div className="form-group">
-            <label>Adresse courriel</label>
-            <input name="email" type="email" placeholder="toi@exemple.com" value={form.email} onChange={handleChange} required />
-          </div>
-
-          <p className="form-section-label">Carte de crédit</p>
-
-          <div className="form-group card-field">
-            <label>Numéro de carte</label>
-            <input
-              name="numerocarte"
-              type="text"
-              placeholder="4242 4242 4242 4242"
-              value={form.numerocarte}
-              onChange={handleChange}
-              maxLength={19}
-              required
-            />
-            <span className="card-icon">💳</span>
-          </div>
-
-          <div className="form-group">
-            <label>Nom sur la carte</label>
-            <input name="nom" type="text" placeholder="Jean Dupont" value={form.nom} onChange={handleChange} required />
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>Expiration</label>
-              <input name="expiration" type="text" placeholder="MM/AA" value={form.expiration} onChange={handleChange} maxLength={5} required />
-            </div>
-            <div className="form-group">
-              <label>CVV</label>
-              <input name="cvv" type="text" placeholder="123" value={form.cvv} onChange={handleChange} maxLength={3} required />
-            </div>
-          </div>
-
-          <button type="submit" className="btn-payer" disabled={loading}>
-            {loading ? '⏳ Traitement...' : `💳 Payer $${total.toFixed(2)}`}
-          </button>
-        </form>
+        <Elements stripe={stripePromise}>
+          <PaymentForm items={items} total={total} />
+        </Elements>
       </div>
     </div>
   );

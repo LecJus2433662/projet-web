@@ -58,7 +58,8 @@ export default function Navbar() {
     <>
       <nav className="navbar-custom">
         <Link href="/" className="brand">
-          MonShop
+          Boutik'érabl
+          
           <span className="brand-dot" />
         </Link>
 

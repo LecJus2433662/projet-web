@@ -231,6 +231,10 @@ celerybeat.pid
 
 # Environments
 .env
+*.env
+.env.local
+.env*.local
+appsettings.Development.json
 .venv
 env/
 venv/
