@@ -1,91 +1,91 @@
 {
-    "produits": [
-      {
-        "id": "1",
-        "nom": "Café Éthiopien Yirgacheffe",
-        "description": "Un café d'exception aux notes florales et fruitées, cultivé en altitude dans les montagnes d'Éthiopie. Arômes de jasmin, bergamote et agrumes avec une acidité vive et élégante.",
-        "prix": 24.99,
-        "quantite": 67,
-        "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600",
-        "disponible": true
-      },
-      {
-        "id": "2",
-        "nom": "Café Colombien Supremo",
-        "description": "Grains de première sélection des hauts plateaux colombiens. Corps riche et velouté avec des notes de caramel, noisette et chocolat noir. Un classique intemporel.",
-        "prix": 19.99,
-        "quantite": 83,
-        "image": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600",
-        "disponible": true
-      },
-      {
-        "id": "3",
-        "nom": "Espresso Blend Vintage",
-        "description": "Un assemblage soigneusement élaboré de grains brésiliens et guatémaltèques torréfiés foncés. Crema dense, corps puissant, amertume équilibrée avec une longue finale chocolatée.",
-        "prix": 22.5,
-        "quantite": 61,
-        "image": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600",
-        "disponible": true
-      },
-      {
-        "id": "4",
-        "nom": "Café Jamaïque Blue Mountain",
-        "description": "L'un des cafés les plus rares et prisés au monde. Cultivé dans les brumes des Blue Mountains, il offre une douceur exceptionnelle, sans amertume, avec des notes de miel et de noix.",
-        "prix": 54.99,
-        "quantite": 12,
-        "image": "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=600",
-        "disponible": true
-      },
-      {
-        "id": "5",
-        "nom": "Café Décaféiné Swiss Water",
-        "description": "Décaféiné naturellement par le procédé Swiss Water sans produits chimiques. Conserve toute la complexité aromatique d'un café de qualité supérieure. Notes de cacao et vanille.",
-        "prix": 17.99,
-        "quantite": 35,
-        "image": "https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600",
-        "disponible": true
-      },
-      {
-        "id": "6",
-        "nom": "Cold Brew Concentré Maison",
-        "description": "Infusion à froid pendant 20 heures pour un concentré ultra-lisse et naturellement sucré. Moins acide que le café chaud traditionnel. Prêt à diluer avec eau ou lait.",
-        "prix": 14.99,
-        "quantite": 0,
-        "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600",
-        "disponible": false
-      },
-      {
-        "id": "7",
-        "nom": "Café Kona Hawaï",
-        "description": "Cultivé sur les pentes volcaniques du Mauna Loa sous un climat idéal. Café doux et lumineux aux notes de miel, macadamia et fleurs tropicales. Production très limitée.",
-        "prix": 48.99,
-        "quantite": 8,
-        "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600",
-        "disponible": true
-      },
-      {
-        "id": "8",
-        "nom": "Mélange Épicé Chai Latte",
-        "description": "Un mariage envoûtant de thé noir Assam, cannelle de Ceylan, cardamome verte, gingembre frais et clou de girofle. Réchauffant et réconfortant en toute saison.",
-        "prix": 16.5,
-        "quantite": 54,
-        "image": "https://images.unsplash.com/photo-1561336313-0bd5e0b27ec8?w=600",
-        "disponible": true
-      }
-    ],
-    "utilisateurs": [
-      {
-        "id": "1",
-        "username": "admin",
-        "password": "admin1234",
-        "role": "admin"
-      },
-      {
-        "id": "2",
-        "username": "jean_dupont",
-        "password": "user1234",
-        "role": "utilisateur"
-      }
-    ],
-    "$schema": "./node_modules/json-server/schema.json"
-  }
+  "produits": [
+    {
+      "id": "1",
+      "nom": "Bacon halal au sirop d'érable",
+      "description": "bacon infusé au sirop d'érable cuisiner avec l'amour pour Jad",
+      "prix": 12.67,
+      "quantite": 67,
+      "image": "https://images.unsplash.com/photo-1742859052497-f8bbc8366a32?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmFjb258ZW58MHx8MHx8fDA%3D",
+      "disponible": true
+    },
+    {
+      "id": "2",
+      "nom": "Pudding chomeur",
+      "description": "c'est tellement bon pour mathis",
+      "prix": 16.67,
+      "quantite": 67,
+      "image": "https://images.ricardocuisine.com/services/recipes/992x1340_8894.jpg",
+      "disponible": true
+    },
+    {
+      "id": "3",
+      "nom": "Tire d'érable",
+      "description": "Le sirop d'érable chauffé est versé dans la neige pour créer la tire. · Versez le sirop d'érable dans une neige compactée",
+      "prix": 1.67,
+      "quantite": 67,
+      "image": "https://images.radio-canada.ca/q_auto,w_844/v1/alimentation/recette/16x9/2892-tire-erable.jpg",
+      "disponible": true
+    },
+    {
+      "id": "4",
+      "nom": "3 Crèpes",
+      "description": "Des pitas mais sucrée",
+      "prix": 8.67,
+      "quantite": 67,
+      "image": "https://img.fourchette-et-bikini.fr/1200x900/2025/03/07/i50846-crepes-sucrees-sans-gluten-et-faciles.webp",
+      "disponible": true
+    },
+    {
+      "id": "5",
+      "nom": "Beurre d'érable",
+      "description": "Une tartinade sucrée et crémeuse faite 100% de sirop d'érable pur",
+      "prix": 9.99,
+      "quantite": 45,
+      "image": "https://images.squarespace-cdn.com/content/v1/5ff4c7c50debdf5d1ff004bc/93f4f384-792c-495c-97b3-fdca6c514eb9/Beurre+d%27%C3%A9rable.png?format=1500w",
+      "disponible": true
+    },
+    {
+      "id": "6",
+      "nom": "Cornet à l'érable",
+      "description": "Crème glacée à la vanille recouverte de sirop d'érable chaud",
+      "prix": 6.49,
+      "quantite": 32,
+      "image": "https://cdn.pratico-pratiques.com/app/uploads/sites/3/2018/08/20185844/mini-cornets-a-l-erable.jpeg",
+      "disponible": true
+    },
+    {
+      "id": "7",
+      "nom": "Biscuits à l'érable",
+      "description": "Biscuits croustillants fourrés avec une crème au sirop d'érable",
+      "prix": 5.99,
+      "quantite": 78,
+      "image": "https://erableduquebec.ca/uploads/2022/01/recette-biscuits-erable-1200x900-1-600x450.jpg",
+      "disponible": true
+    },
+    {
+      "id": "8",
+      "nom": "Lait frappé à l'érable",
+      "description": "Un milkshake froid et sucré avec du vrai sirop d'érable du Québec",
+      "prix": 7.25,
+      "quantite": 21,
+      "image": "https://erableduquebec.ca/uploads/2022/07/recette-lait-frappe-erable-1200x900-1-600x450.jpg",
+      "disponible": true
+    }
+  ],
+  "utilisateurs": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin1234",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "username": "user",
+      "password": "User123!",
+      "role": "utilisateur"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
